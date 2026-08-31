@@ -181,7 +181,6 @@ main{position:relative;z-index:3}
 .trio-icon{font-size:19px;color:var(--accent);display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid rgba(var(--accent-rgb),.3);border-radius:12px;background:var(--accent-dim);margin-bottom:20px}
 .trio-card h3{font-size:19px;margin-bottom:10px}
 .trio-card p{color:var(--muted);font-size:14.5px}
-.about-note{margin-top:46px;color:var(--faint);font-size:12.5px}
 /* ---------- projects ---------- */
 .project{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:76px 0;border-top:1px solid var(--line)}
 .project:first-of-type{border-top:0;padding-top:8px}
