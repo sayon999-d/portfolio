@@ -33,7 +33,7 @@ js/main.js        # warp scroller + bend engine, nav, scroll progress, reveals, 
 5. **Stack** — auto-scanning skill matrix + categorized skill chips
 6. **Experience** — Bluestock Fintech internship timeline card
 7. **Credentials** — 5 certifications + education
-8. **Contact** — CTA + email/phone/location/LinkedIn/GitHub cards
+8. **Contact** — CTA + email/location/LinkedIn/GitHub cards
 9. **Footer** — nav columns + back-to-top
 
 ## Customize
