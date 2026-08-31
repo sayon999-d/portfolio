@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sayon Manna — AI &amp; ML Engineer</title>
+  <meta name="description" content="Portfolio of Sayon Manna — AI &amp; ML engineer in Bengaluru building LLM orchestration platforms, RAG pipelines and production backend systems." />
+  <meta name="theme-color" content="#f5f5f2" />
+  <meta property="og:title" content="Sayon Manna — AI &amp; ML Engineer" />
+  <meta property="og:description" content="LLM orchestration, RAG pipelines and production backends. 90+ agents orchestrated, 500+ documents indexed, 0 external API calls." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2322c55e'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='26' font-weight='bold' text-anchor='middle' fill='%23f5f5f2'%3ESM%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="hero-bg" aria-hidden="true">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="blob blob-c"></div>
+    <canvas id="heroCanvas"></canvas>
+  </div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><i id="scrollBar"></i></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ================= NAV ================= -->
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Sayon Manna — home">
+        <span class="brand-mark" aria-hidden="true">SM</span>
+        <span class="brand-text mono">Sayon Manna</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#stack">Stack</a>
+        <a href="#experience">Experience</a>
+        <a href="#credentials">Credentials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-accent btn-sm" href="mailto:sayonmana@gmail.com">Hire me</a>
+        <button class="nav-burger" id="navBurger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- warp stage: fixed viewport frame — the entire page bends inside it while scrolling -->
+  <div class="warp-stage" id="warpStage">
+    <div class="warp-scroll" id="warpScroll" tabindex="-1">
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <div class="bg-glow glow-a" aria-hidden="true"></div>
+      <div class="bg-glow glow-b" aria-hidden="true"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-reveal><span class="pulse-dot" aria-hidden="true"></span> AI &amp; ML Engineer — Bengaluru, India</p>
+          <h1 class="hero-title" data-reveal data-delay="1">I turn AI research into <span class="accent">production&nbsp;systems</span>.</h1>
+          <p class="hero-sub" data-reveal data-delay="2">Sayon Manna builds <strong>LLM orchestration</strong>, <strong>RAG pipelines</strong> and <strong>backend systems</strong> — from an omni-agent platform running 90+ specialized agents to a fully offline RAG chatbot with zero external API calls.</p>
+          <div class="hero-actions" data-reveal data-delay="3">
+            <a class="btn btn-accent" href="#work">View the work</a>
+            <a class="btn btn-ghost" href="#contact">Get in touch</a>
+          </div>
+          <dl class="hero-stats" data-reveal data-delay="4">
+            <div class="stat"><dt><span data-count="90" data-suffix="+">0</span></dt><dd>AI agents orchestrated</dd></div>
+            <div class="stat"><dt><span data-count="500" data-suffix="+">0</span></dt><dd>docs indexed on-device</dd></div>
+            <div class="stat"><dt><span data-count="30" data-suffix="+">0</span></dt><dd>visual analysis features</dd></div>
+            <div class="stat"><dt><span data-count="91.7" data-decimals="1" data-suffix="%">0</span></dt><dd>less manual evaluation</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-visual" data-reveal data-delay="2">
+          <div class="float-chip mono" aria-hidden="true">✓ 90 agents live</div>
+          <div class="console" id="console">
+            <div class="console-head">
+              <span class="dot d-r" aria-hidden="true"></span><span class="dot d-y" aria-hidden="true"></span><span class="dot d-g" aria-hidden="true"></span>
+              <span class="console-title mono">limbi — orchestration console</span>
+              <span class="console-badge mono">live</span>
+            </div>
+            <div class="console-body">
+              <div class="console-cmd mono"><span class="c-prompt">$</span> <span id="typeTarget"></span><span class="c-caret" aria-hidden="true"></span></div>
+              <div class="dept-list" aria-hidden="true">
+                <div class="dept-row"><span class="mono">engineering</span><div class="dept-bar"><i style="--w:88%"></i></div><b class="mono">32</b></div>
+                <div class="dept-row"><span class="mono">devops</span><div class="dept-bar"><i style="--w:74%"></i></div><b class="mono">21</b></div>
+                <div class="dept-row"><span class="mono">security</span><div class="dept-bar"><i style="--w:66%"></i></div><b class="mono">18</b></div>
+                <div class="dept-row"><span class="mono">business</span><div class="dept-bar"><i style="--w:80%"></i></div><b class="mono">19</b></div>
+              </div>
+              <div class="prov-chips" aria-hidden="true">
+                <span>Ollama</span><span>OpenAI</span><span>Anthropic</span><span>Groq</span><span>HuggingFace</span><span class="more">+4 modes</span>
+              </div>
+              <div class="console-log mono" aria-hidden="true">
+                <p><span class="ok">✓</span> orchestrator online — 90 agents ready</p>
+                <p><span class="ok">✓</span> mcp server listening on :8080</p>
+                <p><span class="ok">✓</span> pypi · homebrew · curl installer</p>
+              </div>
+            </div>
+            <div class="console-foot mono"><span>0 external API calls</span><span>100% on-device</span><span>v1.0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <span>Python</span><i>✦</i><span>FastAPI</span><i>✦</i><span>PyTorch</span><i>✦</i><span>TensorFlow</span><i>✦</i><span>LangChain</span><i>✦</i><span>LangGraph</span><i>✦</i><span>Langflow</span><i>✦</i><span>OpenCV</span><i>✦</i><span>ChromaDB</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Redis</span><i>✦</i><span>Docker</span><i>✦</i><span>GitHub Actions</span><i>✦</i><span>AWS</span><i>✦</i><span>Ollama</span><i>✦</i><span>MCP</span><i>✦</i>
+          </div>
+          <div class="marquee-group">
+            <span>Python</span><i>✦</i><span>FastAPI</span><i>✦</i><span>PyTorch</span><i>✦</i><span>TensorFlow</span><i>✦</i><span>LangChain</span><i>✦</i><span>LangGraph</span><i>✦</i><span>Langflow</span><i>✦</i><span>OpenCV</span><i>✦</i><span>ChromaDB</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Redis</span><i>✦</i><span>Docker</span><i>✦</i><span>GitHub Actions</span><i>✦</i><span>AWS</span><i>✦</i><span>Ollama</span><i>✦</i><span>MCP</span><i>✦</i>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================= ABOUT ================= -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="pixel-hello" aria-hidden="true">
+          <div class="pixel-hello-grid" id="pixelHello"></div>
+        </div>
+        <div class="section-head" data-reveal>
+          <p class="section-tag mono">01 — Profile</p>
+          <h2>An engineer shaped like a platform.</h2>
+          <p class="section-sub">I design, build and ship AI systems end to end — from model selection and data pipelines to FastAPI backends and Dockerized deployment.</p>
+        </div>
+        <div class="trio">
+          <article class="trio-card" data-reveal data-delay="1">
+            <span class="trio-icon" aria-hidden="true">◈</span>
+            <h3>Agentic by design</h3>
+            <p>90+ specialized AI agents coordinated across engineering, DevOps, security and business domains — reachable through a CLI, a Python API or an MCP server.</p>
+          </article>
+          <article class="trio-card" data-reveal data-delay="2">
+            <span class="trio-icon" aria-hidden="true">◉</span>
+            <h3>Human in the loop</h3>
+            <p>From anomaly review queues in ORCA to acceptance thresholds in forecasting pipelines — models propose, humans approve, nothing ships blindly.</p>
+          </article>
+          <article class="trio-card" data-reveal data-delay="3">
+            <span class="trio-icon" aria-hidden="true">⬡</span>
+            <h3>Fully extensible</h3>
+            <p>Nine LLM provider modes behind one provider-neutral orchestrator — Ollama, OpenAI, Anthropic, Groq, HuggingFace and more — containerized and published to PyPI.</p>
+          </article>
+        </div>
+        <p class="about-note mono" data-reveal>// currently open to AI/ML engineering roles, internships and freelance builds</p>
+      </div>
+    </section>
+
+    <!-- ================= WORK ================= -->
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-tag mono">02 — Selected work</p>
+          <h2>Four systems, shipped live.</h2>
+          <p class="section-sub">Every project below is deployed — open them, poke them, break them.</p>
+        </div>
+
+      <article class="project" data-reveal>
+        <div class="project-info">
+          <div class="proj-topline mono"><span class="proj-no">01</span><span class="proj-kind">Computer vision · Dashboard</span></div>
+          <h3>ORCA — Image Intelligence Dashboard</h3>
+          <p class="proj-tech mono">Python · OpenCV · FastAPI · PyTorch</p>
+          <ul class="proj-list">
+            <li>30+ visual analysis features — pattern clustering, recursive deep search, anomaly scoring and a human-in-the-loop review queue.</li>
+            <li>4 export formats (JSON, CSV, YOLO, COCO) and a domain baseline model trained on COCO + astronomy datasets for novelty scoring and candidate ranking.</li>
+          </ul>
+          <div class="proj-metrics mono"><span>30+ features</span><span>4 export formats</span><span>2 datasets</span></div>
+          <a class="btn btn-ghost btn-sm" href="https://project-5-jade-phi.vercel.app/" target="_blank" rel="noopener">Launch ORCA ↗</a>
+        </div>
+        <div class="project-visual">
+          <div class="mock mock-orca" aria-hidden="true">
+            <div class="mock-bar mono"><span>orca · detection grid</span><span class="ok">● scanning</span></div>
+            <div class="orca-stage">
+              <div class="bbox" style="top:18%;left:14%;width:30%;height:38%"><span class="mono">object · 0.94</span></div>
+              <div class="bbox bbox-anomaly" style="top:44%;left:56%;width:26%;height:34%"><span class="mono">anomaly · 0.87</span></div>
+            </div>
+            <div class="score-rows mono">
+              <div class="score-row"><span>novelty</span><div class="bar"><i style="--w:23%"></i></div><b>0.23</b></div>
+              <div class="score-row"><span>confidence</span><div class="bar"><i style="--w:94%"></i></div><b>0.94</b></div>
+              <div class="score-row"><span>cluster fit</span><div class="bar"><i style="--w:81%"></i></div><b>0.81</b></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="project flip" data-reveal>
+        <div class="project-info">
+          <div class="proj-topline mono"><span class="proj-no">02</span><span class="proj-kind">Agentic orchestration · Dev tooling</span></div>
+          <h3>Limbi — Omni-Agent Orchestration Platform</h3>
+          <p class="proj-tech mono">Python · FastAPI · LangChain · ChromaDB · Docker</p>
+          <ul class="proj-list">
+            <li>90+ specialized AI agents coordinated across engineering, DevOps, security and business domains — accessible via CLI, Python API or MCP server.</li>
+            <li>9 LLM provider modes (Ollama, OpenAI, Anthropic, Groq, HuggingFace and more) integrated through a single provider-neutral orchestrator.</li>
+            <li>Published to PyPI with Homebrew, pip and one-line curl installer support.</li>
+          </ul>
+          <div class="proj-metrics mono"><span>90+ agents</span><span>9 providers</span><span>PyPI + Homebrew</span></div>
+          <a class="btn btn-ghost btn-sm" href="https://sayon999-d.github.io/Limbi/" target="_blank" rel="noopener">Explore Limbi ↗</a>
+        </div>
+        <div class="project-visual">
+          <div class="mock mock-term" aria-hidden="true">
+            <div class="mock-bar mono"><span>limbi · zsh</span><span class="ok">● connected</span></div>
+            <div class="term-body mono">
+              <p><span class="c-prompt">$</span> pip install limbi</p>
+              <p class="dim">Successfully installed limbi-1.0</p>
+              <p><span class="c-prompt">$</span> limbi agents --list | wc -l</p>
+              <p class="dim">90</p>
+              <p><span class="c-prompt">$</span> limbi run --interface mcp</p>
+              <p class="dim">orchestrator: provider-neutral · 9 modes</p>
+              <p><span class="ok">✓</span> serving on localhost:8080</p>
+            </div>
+            <div class="chip-row"><span>PyPI</span><span>Homebrew</span><span>pip</span><span>curl installer</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project" data-reveal>
+        <div class="project-info">
+          <div class="proj-topline mono"><span class="proj-no">03</span><span class="proj-kind">RAG · On-device AI</span></div>
+          <h3>Local Knowledge Chatbot (RAG System)</h3>
+          <p class="proj-tech mono">Python · Ollama · ChromaDB · Docker</p>
+          <ul class="proj-list">
+            <li>0 external API calls in a fully offline RAG chatbot, keeping 100% of sensitive data on-device.</li>
+            <li>500+ documents indexed into a local vector database using automated scrapers, containerized with Docker Compose.</li>
+          </ul>
+          <div class="proj-metrics mono"><span>0 external calls</span><span>500+ docs</span><span>Docker Compose</span></div>
+          <a class="btn btn-ghost btn-sm" href="https://local-knowledge-chatbot.streamlit.app/" target="_blank" rel="noopener">Open the chatbot ↗</a>
+        </div>
+        <div class="project-visual">
+          <div class="mock mock-chat" aria-hidden="true">
+            <div class="mock-bar mono"><span>local-knowledge · chat</span><span class="ok">● offline</span></div>
+            <div class="chat-body">
+              <div class="bubble user mono">What's our API rate-limit policy?</div>
+              <div class="bubble bot mono">Per docs/limits.md — 60 req/min per key, burst 120.<br /><span class="dim">sources: limits.md · gateway.md</span></div>
+            </div>
+            <div class="chip-row"><span>Ollama</span><span>ChromaDB</span><span>Docker Compose</span><span>0 external calls</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="project" data-reveal>
+        <div class="project-info">
+          <div class="proj-topline mono"><span class="proj-no">04</span><span class="proj-kind">ML pipeline · Forecasting</span></div>
+          <h3>Sales Forecasting ML Pipeline</h3>
+          <p class="proj-tech mono">Python · PyTorch · PostgreSQL · SQL</p>
+          <ul class="proj-list">
+            <li>3 stages built end-to-end — data fetching, cleaning and model training — running on structured databases.</li>
+            <li>91.7% reduction in manual evaluation effort (10.00s → 0.83s) by comparing 6 regression and tree-based models.</li>
+            <li>Linear Regression selected as the best model (MAE: 339.95, RMSE: 478.75), passing all acceptance thresholds.</li>
+          </ul>
+          <div class="proj-metrics mono"><span>3 stages</span><span>6 models compared</span><span>10.00s → 0.83s</span></div>
+          <a class="btn btn-ghost btn-sm" href="https://sales-forecasting-prediction-model-n.streamlit.app/" target="_blank" rel="noopener">Open the pipeline ↗</a>
+        </div>
+        <div class="project-visual">
+          <div class="mock mock-chart" aria-hidden="true">
+            <div class="mock-bar mono"><span>sales-forecast · training</span><span class="ok">● 6 models</span></div>
+            <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Forecast trend chart">
+              <defs>
+                <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(34,197,94,.22)"/>
+                  <stop offset="100%" stop-color="rgba(34,197,94,0)"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,95 40,88 80,74 120,78 160,58 200,50 240,36 280,30 320,18 L320,120 0,120 Z" fill="url(#area)"/>
+              <polyline points="0,95 40,88 80,74 120,78 160,58 200,50 240,36 280,30 320,18" fill="none" stroke="rgba(34,197,94,.95)" stroke-width="2.5"/>
+              <polyline points="0,105 40,100 80,96 120,90 160,88 200,80 240,74 280,70 320,66" fill="none" stroke="rgba(32,32,32,.3)" stroke-width="2" stroke-dasharray="4 5"/>
+            </svg>
+            <div class="chip-row mono"><span>MAE 339.95</span><span>RMSE 478.75</span><span>eval 10.00s → 0.83s</span></div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <!-- ================= STACK ================= -->
+    <section class="section" id="stack">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-tag mono">03 — Stack</p>
+          <h2>The toolkit, in the wild.</h2>
+          <p class="section-sub">Everything below has shipped in a real project — not just a tutorial. Watch the matrix scan itself.</p>
+        </div>
+
+        <div class="matrix-wrap" data-reveal>
+          <div class="matrix-head mono"><span>skill-matrix.txt</span><span>15 × 9 · auto-scanning</span></div>
+          <div class="matrix" id="matrix" role="img" aria-label="Word-search style grid highlighting skills: Python, FastAPI, PyTorch, LangGraph, Docker, ChromaDB, Postgres, Redis, OpenAI, Ollama, SQL, MCP, NLP, RAG"></div>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card" data-reveal data-delay="1">
+            <h3>Languages &amp; Frameworks</h3>
+            <div class="skill-chips"><span>Python</span><span>FastAPI</span><span>SQL</span><span>PyTorch</span><span>TensorFlow</span><span>LangChain</span><span>LangGraph</span><span>Langflow</span></div>
+          </div>
+          <div class="skill-card" data-reveal data-delay="2">
+            <h3>Authentication</h3>
+            <div class="skill-chips"><span>Clerk</span><span>GitHub OAuth</span><span>JWT</span><span>Role-Based Access Control</span></div>
+          </div>
+          <div class="skill-card" data-reveal data-delay="3">
+            <h3>Tools &amp; Databases</h3>
+            <div class="skill-chips"><span>PostgreSQL</span><span>VectorDB</span><span>Docker</span><span>Git</span><span>GitHub Actions</span><span>MySQL</span><span>Redis</span></div>
+          </div>
+          <div class="skill-card" data-reveal data-delay="4">
+            <h3>Core Concepts</h3>
+            <div class="skill-chips"><span>Machine Learning</span><span>Deep Learning</span><span>Computer Vision</span><span>NLP</span><span>Cloud Computing</span><span>RAG Pipelines</span><span>Data Science</span><span>Feature Engineering</span><span>Model Deployment</span><span>REST APIs</span><span>Linux</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================= EXPERIENCE ================= -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-tag mono">04 — Experience</p>
+          <h2>Where I've worked.</h2>
+        </div>
+
+        <div class="xp-card" data-reveal>
+          <div class="xp-head">
+            <div>
+              <h3>Data Analyst Intern</h3>
+              <p class="xp-org">Bluestock Fintech</p>
+            </div>
+            <div class="xp-meta">
+              <span>Remote</span><span>Jun 2026 — Jul 2026</span><span>Bengaluru, India</span>
+            </div>
+          </div>
+          <ul>
+            <li>Analyzed mutual fund and financial datasets to identify trends, supporting data-driven insights for the team's analytics initiatives.</li>
+            <li>Built and maintained reports and dashboards using SQL and Excel, improving the accuracy and accessibility of key performance metrics.</li>
+            <li>Collaborated remotely with a cross-functional team to translate raw data into actionable summaries for stakeholders.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CREDENTIALS ================= -->
+    <section class="section" id="credentials">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-tag mono">05 — Credentials</p>
+          <h2>Certified, then proven.</h2>
+        </div>
+
+        <div class="cert-grid">
+          <article class="cert-card" data-reveal data-delay="1">
+            <span class="cert-no">CERT (I)</span>
+            <h3>Machine Learning with Python</h3>
+            <p>IBM</p>
+          </article>
+          <article class="cert-card" data-reveal data-delay="2">
+            <span class="cert-no">CERT (II)</span>
+            <h3>REST API (Intermediate)</h3>
+            <p>HackerRank</p>
+          </article>
+          <article class="cert-card" data-reveal data-delay="3">
+            <span class="cert-no">CERT (III)</span>
+            <h3>Containers &amp; Kubernetes Essentials</h3>
+            <p>IBM</p>
+          </article>
+          <article class="cert-card" data-reveal data-delay="4">
+            <span class="cert-no">CERT (IV)</span>
+            <h3>AWS Cloud Essentials</h3>
+            <p>Amazon Web Services</p>
+          </article>
+          <article class="cert-card" data-reveal>
+            <span class="cert-no">CERT (V)</span>
+            <h3>Introduction to Generative AI</h3>
+            <p>Google</p>
+          </article>
+        </div>
+
+        <div class="edu-card" data-reveal>
+          <p class="edu-tag">06 — Education</p>
+          <h3>B.Tech in Artificial Intelligence &amp; Machine Learning</h3>
+          <p>Jain (Deemed-to-be University) — Bengaluru, Karnataka</p>
+        </div>
+      </div>
+    </section>
+    <!-- ================= CONTACT ================= -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-head" data-reveal>
+          <p class="section-tag mono">07 — Contact</p>
+          <h2>Let's build the next <span class="accent">intelligent system</span>.</h2>
+          <p class="section-sub">Open to AI/ML roles, internships and freelance builds. If it involves agents, RAG or shipping fast — I'm in.</p>
+        </div>
+        <div class="contact-actions" data-reveal data-delay="1">
+          <a class="btn btn-accent" href="mailto:sayonmana@gmail.com">Email me</a>
+          <a class="btn btn-ghost" href="tel:+918310407015">Call +91 83104 07015</a>
+        </div>
+        <div class="contact-grid">
+          <a class="contact-card" href="mailto:sayonmana@gmail.com" data-reveal data-delay="1">
+            <span class="cc-label">Email</span>
+            <span class="cc-value">sayonmana@gmail.com</span>
+          </a>
+          <a class="contact-card" href="tel:+918310407015" data-reveal data-delay="2">
+            <span class="cc-label">Phone</span>
+            <span class="cc-value">+91 83104 07015</span>
+          </a>
+          <div class="contact-card" data-reveal data-delay="3">
+            <span class="cc-label">Location</span>
+            <span class="cc-value">Bengaluru, Karnataka 560100</span>
+          </div>
+          <a class="contact-card" href="https://www.linkedin.com/in/sayonmanna" target="_blank" rel="noopener" data-reveal data-delay="4">
+            <span class="cc-label">LinkedIn</span>
+            <span class="cc-value">/in/sayonmanna</span>
+          </a>
+          <a class="contact-card" href="https://github.com/sayon999-d" target="_blank" rel="noopener" data-reveal>
+            <span class="cc-label">GitHub</span>
+            <span class="cc-value">@sayon999-d</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="Back to top">
+          <span class="brand-mark" aria-hidden="true">SM</span>
+          <span class="brand-text mono">Sayon Manna</span>
+        </a>
+        <p>AI &amp; ML engineer — LLM orchestration, RAG pipelines and production backends. Designed &amp; built from scratch with vanilla HTML, CSS and JavaScript.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#stack">Stack</a>
+        <a href="#experience">Experience</a>
+        <a href="#credentials">Credentials</a>
+      </div>
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
+        <a href="https://github.com/sayon999-d" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/sayonmanna" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:sayonmana@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <span>© <span id="year">2026</span> Sayon Manna</span>
+      <span>Bengaluru, Karnataka — 560100</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+    </div>
+  </div>
+
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+  <script src="js/main.js"></script>
+</body>
+</html>

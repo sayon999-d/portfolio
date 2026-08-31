@@ -1,0 +1,113 @@
+# ============================================================
+# .gitignore — Sayon Manna portfolio (static site)
+# Security-first: NEVER commit secrets, env files, credentials,
+# API keys, or private configuration. This file blocks them.
+# ============================================================
+
+# ---- Secrets & credentials (highest priority: never commit) ----
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+*.env
+!.env.example                      # allow the safe example template if you add one
+.envrc
+secrets.*
+*.secret
+*.secrets
+config.private.*
+local.settings.json
+appsettings.Local.json
+
+# API keys / tokens / auth
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+*.jwt
+*.token
+apikey.*
+api-keys.*
+id_rsa*
+id_ed25519*
+*.pem.txt
+service-account*.json
+*service-account*.json
+credentials*.json
+google-credentials*.json
+firebase-credentials*.json
+
+# ---- Sensitive config files ----
+*.sql                          # raw DB dumps / migrations with data
+backup.*
+*.tar.gz
+*.zip
+dump.*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.pid
+*.seed
+*.rsa
+
+# ---- Dependency & build artifacts (not needed for pure static deploy) ----
+node_modules/
+vendor/
+dist/
+build/
+out/
+coverage/
+*.tgz
+*.min.js
+*.min.css.purged
+
+# ---- Editor / OS cruft ----
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ---- Logging / caches ----
+*.cache
+.cache/
+.tmp
+.temp
+.tmp/
+
+# ---- GitHub Pages local preview servers ----
+*.http-server
+.jspm/
+
+# ---- Local deployment scratch ----
+deploy/
+gh-pages/
+.netlify/
+vercel/
+.vercel/
+
+# ---- Keep scoped: never ignore the real public source ----
+!index.html
+!css/
+!js/
+!README.md
+!.github/workflows/
+!.nojekyll
