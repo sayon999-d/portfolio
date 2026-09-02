@@ -548,7 +548,7 @@
     /* the bend itself — motion allowed only */
     if (stage && !prefersReduced) {
       const root = document.documentElement;
-      const VEL_MAX = 150; // px/frame clamp for raw scroll velocity
+      const VEL_MAX = 70; // px/frame clamp — lower threshold so normal wheel/trackpad scrolls visibly bend
       let radius = 0, tilt = 0, skew = 0, sx = 1, sy = 1, vel = 0, u = 0;
       let lastY = scroller.scrollTop, lastSig = "";
       (function warpLoop() {
@@ -557,11 +557,11 @@
         vel += (dy - vel) * (dy !== 0 ? 0.3 : 0.1);   // smooth signed velocity: fast in, slow out
         const n = Math.min(1, Math.abs(vel) / VEL_MAX);
         const dir = vel >= 0 ? 1 : -1;
-        radius += (n * 64 - radius) * 0.3;            // corner curve while velocity ramps
-        tilt += (n * 2.1 * dir - tilt) * 0.2;         // shallow perspective => leading edge magnifies toward the viewer
-        skew += (n * 0.65 * dir - skew) * 0.2;        // shear = flow curvature
-        sx += (1 + n * 0.02 - sx) * 0.3;              // slight horizontal swell
-        sy += (1 + n * 0.055 - sy) * 0.3;             // STRONG vertical stretch along the scroll axis (visible)
+        radius += (n * 80 - radius) * 0.3;            // corner curve — dark void peeks through the rounding corners
+        tilt += (n * 3.4 * dir - tilt) * 0.2;         // shallow perspective => leading edge magnifies toward the viewer
+        skew += (n * 0.9 * dir - skew) * 0.2;         // shear = flow curvature
+        sx += (1 + n * 0.035 - sx) * 0.3;             // horizontal swell
+        sy += (1 + n * 0.10 - sy) * 0.3;              // vertical stretch along the scroll axis (visible)
         u += (n - u) * 0.16;                          // aurora bulge 0..1
         const sig = radius.toFixed(2) + tilt.toFixed(3) + skew.toFixed(3) + sx.toFixed(4) + sy.toFixed(4) + u.toFixed(3);
         if (sig !== lastSig) {

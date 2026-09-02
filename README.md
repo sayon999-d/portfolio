@@ -41,7 +41,7 @@ js/main.js        # warp scroller + bend engine, nav, scroll progress, reveals, 
 
 - **LinkedIn URL** — the resume listed no URL, so `https://www.linkedin.com/in/sayonmanna` is used as a placeholder in `index.html` (search for `linkedin` and replace with the real profile URL).
 - **Colors** — edit the CSS variables in `:root` (`--accent`, `--bg`, etc.).
-- **Scroll warp** — tune the constants in the warp engine in `js/main.js` (peak radius `64`, tilt `2.1°`, skew `0.65°`, stretch `0.02` horizontal / `0.055` vertical, `perspective(900px)` in the `.warp-stage` CSS); the shader bulge lives in the fragment shader (`u_bend`, `0.105`).
+- **Scroll warp** — tune the constants in the warp engine in `js/main.js` (velocity clamp `VEL_MAX = 70` px/frame, peak radius `80`, tilt `3.4°`, skew `0.9°`, stretch `0.035` horizontal / `0.10` vertical, `perspective(900px)` in the `.warp-stage` CSS). The dark corner void is the `body` background (`#141412`) revealed through the rounding corners; the page sheet carries its own light background. The shader bulge lives in the fragment shader (`u_bend`, `0.105`).
 - **Projects / links** — each project is an `<article class="project">` block in `index.html`.
 - **Resume PDF** — optionally add `Sayon_Manna.pdf` to the folder and link a "Download résumé" button to it.
 
