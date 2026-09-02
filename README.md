@@ -24,7 +24,7 @@ js/main.js        # warp scroller + bend engine, nav, scroll progress, reveals, 
 
 ## Sections
 
-1. **Full-page aurora wallpaper** — a fixed WebGL gradient (GPU flow-field in the site's warm palette) visible behind every section, reacting to the cursor anywhere on the page; CSS gradient blobs serve as the no-WebGL fallback
+1. **Full-page aurora wallpaper** — a fixed WebGL gradient (GPU flow-field painting drifting bands of brand green, teal, peach and violet over the warm cream base) visible behind every section, reacting to the cursor anywhere on the page; CSS gradient blobs serve as the no-WebGL fallback
 2. **Hero** — headline, animated stat counters, live "orchestration console" with typing commands and department bars
 3. **Interactions** — cursor aurora glow that follows the pointer, magnetic buttons, 3D tilt on cards, scroll reveals, counters, scrollspy nav, tech marquee, and a **WebGL scroll warp**: the page scrolls inside a fixed frame that bends — corners round, the sheet tilts and curves outward at its edges — strictly while scrolling, easing back to perfectly flat on stop, while the aurora shader bulges outward at the edges/corners in sync
 2. **Marquee** — infinite scroll of the tech stack
