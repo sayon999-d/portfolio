@@ -16,12 +16,6 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="hero-bg" aria-hidden="true">
-    <div class="blob blob-a"></div>
-    <div class="blob blob-b"></div>
-    <div class="blob blob-c"></div>
-    <canvas id="heroCanvas"></canvas>
-  </div>
   <div class="noise" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"><i id="scrollBar"></i></div>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -53,6 +47,13 @@
 
   <!-- warp stage: fixed viewport frame — the entire page bends inside it while scrolling -->
   <div class="warp-stage" id="warpStage">
+    <!-- animated WebGL aurora backdrop: fixed to the stage frame, painted beneath the scrolling sheet -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="blob blob-a"></div>
+      <div class="blob blob-b"></div>
+      <div class="blob blob-c"></div>
+      <canvas id="heroCanvas"></canvas>
+    </div>
     <div class="warp-scroll" id="warpScroll" tabindex="-1">
   <main id="main">
     <!-- ================= HERO ================= -->

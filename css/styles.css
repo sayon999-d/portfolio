@@ -106,7 +106,7 @@ main{position:relative;z-index:3}
 :root{--accent-rgb:34,197,94;--amber:#a3e635}
 
 /* ---------- hero motion wallpaper ---------- */
-.hero-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+.hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .hero-bg canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
 .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;will-change:transform}
 .blob-a{width:560px;height:560px;left:-160px;top:-180px;background:radial-gradient(circle at 30% 30%,rgba(var(--accent-rgb),.34),rgba(var(--accent-rgb),0) 70%);animation:drift-a 26s ease-in-out infinite alternate}
