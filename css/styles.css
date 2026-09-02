@@ -322,12 +322,10 @@ main{position:relative;z-index:3}
   .architecture-flow-container .mermaid{padding:14px 10px}
 }
 /* ---------- ↔ expand button (one-click full view) ---------- */
-/* floats over the diagram's top-right corner, like a map control: hidden for
-   mouse users until hover, always visible on touch devices */
-.flow-expand-btn{position:absolute;top:48px;right:12px;z-index:5;width:42px;height:42px;display:grid;place-items:center;background:rgba(255,255,255,.92);border:1px solid var(--line-strong);border-radius:13px;color:var(--text);cursor:zoom-in;box-shadow:0 10px 26px rgba(32,32,32,.16);opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s,border-color .25s,color .25s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.architecture-flow-container:hover .flow-expand-btn,.flow-expand-btn:focus-visible{opacity:1;transform:none}
-.architecture-flow-container:hover .flow-expand-btn:hover{border-color:var(--accent);color:var(--accent)}
-@media (hover:none),(pointer:coarse){.flow-expand-btn{opacity:1;transform:none}}
+/* floats over the diagram's top-right corner, like a map control — always
+   visible; turns green-accented on hover */
+.flow-expand-btn{position:absolute;top:48px;right:12px;z-index:5;width:42px;height:42px;display:grid;place-items:center;background:rgba(255,255,255,.92);border:1px solid var(--line-strong);border-radius:13px;color:var(--text);cursor:zoom-in;box-shadow:0 10px 26px rgba(32,32,32,.16);transition:border-color .25s,color .25s,transform .25s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.architecture-flow-container:hover .flow-expand-btn{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
 .flow-expand-btn svg{width:20px;height:20px}
 .architecture-flow-container .mermaid{cursor:zoom-in}
 /* ---------- lightbox: focused full-view overlay (no browser zooming) ---------- */
