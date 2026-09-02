@@ -212,6 +212,109 @@
     wrap.addEventListener("pointerleave", () => { consoleEl.style.transform = "none"; });
   }
 
+  /* ---------- mermaid diagram lightbox: one-click full view (↔ button) ---------- */
+  (() => {
+    const containers = document.querySelectorAll(".architecture-flow-container");
+    if (!containers.length) return;
+    const pageScroller = document.getElementById("warpScroll");
+
+    // overlay built once, reused by every diagram on the page
+    const lb = document.createElement("div");
+    lb.className = "flow-lightbox";
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.setAttribute("aria-label", "Architecture diagram — full view");
+    lb.innerHTML =
+      '<div class="flow-lb-panel">' +
+        '<div class="flow-lb-head">' +
+          '<span class="flow-lb-title mono"></span>' +
+          '<span class="flow-lb-actions">' +
+            '<button class="flow-lb-zoom mono" type="button" title="Toggle actual size">1:1</button>' +
+            '<button class="flow-lb-close" type="button" aria-label="Close full view">✕</button>' +
+          '</span>' +
+        '</div>' +
+        '<div class="flow-lb-body"></div>' +
+      '</div>';
+    document.body.appendChild(lb);
+
+    const lbBody = lb.querySelector(".flow-lb-body");
+    const lbTitle = lb.querySelector(".flow-lb-title");
+    const lbZoom = lb.querySelector(".flow-lb-zoom");
+    const lbClose = lb.querySelector(".flow-lb-close");
+    let lastFocus = null;
+    let naturalW = 0;
+
+    const setFit = () => {
+      lb.classList.remove("one-to-one");
+      const svg = lbBody.querySelector("svg");
+      if (svg) svg.style.width = "";
+      lbZoom.textContent = "1:1";
+    };
+
+    const open = (container) => {
+      const svg = container.querySelector("svg");
+      const nameEl = container.querySelector(".flow-header span");
+      lbTitle.textContent = nameEl ? nameEl.textContent : "architecture-flow.mmd";
+      lbBody.innerHTML = "";
+      naturalW = 0;
+      if (svg) {
+        const clone = svg.cloneNode(true);
+        clone.removeAttribute("style");              // drop mermaid's inline max-width so it can scale up
+        const vb = clone.viewBox && clone.viewBox.baseVal;
+        if (vb && vb.width) naturalW = Math.round(vb.width);
+        lbBody.appendChild(clone);
+        lbZoom.style.display = "";
+      } else {
+        // mermaid not rendered yet (e.g. offline CDN) — show the raw definition
+        const pre = container.querySelector("pre.mermaid");
+        const raw = document.createElement("pre");
+        raw.className = "flow-lb-raw mono";
+        raw.textContent = pre ? pre.textContent : "// diagram unavailable";
+        lbBody.appendChild(raw);
+        lbZoom.style.display = "none";
+      }
+      setFit();
+      lastFocus = document.activeElement;
+      lb.classList.add("open");
+      if (pageScroller) pageScroller.style.overflow = "hidden";  // freeze page scroll (page scrolls inside the warp stage)
+      lbClose.focus();
+    };
+
+    const close = () => {
+      lb.classList.remove("open");
+      if (pageScroller) pageScroller.style.overflow = "";
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    };
+
+    lbZoom.addEventListener("click", () => {
+      if (!lb.classList.contains("one-to-one")) {
+        const svg = lbBody.querySelector("svg");
+        if (svg && naturalW) {
+          svg.style.width = naturalW + "px";         // actual pixel size — pan by scrolling
+          lb.classList.add("one-to-one");
+          lbZoom.textContent = "⤢ Fit";
+        }
+      } else setFit();
+    });
+
+    containers.forEach((c) => {
+      const btn = document.createElement("button");
+      btn.className = "flow-expand-btn";
+      btn.type = "button";
+      btn.title = "View full diagram";
+      btn.setAttribute("aria-label", "View diagram in full view");
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h20"/><path d="M6 8l-4 4 4 4"/><path d="M18 8l4 4-4 4"/></svg>';
+      c.appendChild(btn);
+      btn.addEventListener("click", (e) => { e.stopPropagation(); open(c); });
+      const stage = c.querySelector(".mermaid");
+      if (stage) stage.addEventListener("click", () => open(c));   // one click on the diagram itself
+    });
+
+    lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+    lbClose.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lb.classList.contains("open")) close(); });
+  })();
+
   /* ---------- scrollspy ---------- */
   const spyLinks = document.querySelectorAll(".nav-links a[href^='#']");
   const spyMap = {};

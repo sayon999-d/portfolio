@@ -310,7 +310,7 @@ main{position:relative;z-index:3}
    corners are clipped by overflow:hidden on the frame itself, while the
    diagram area below scrolls horizontally — the file-name header stays
    pinned instead of scrolling away with the chart. */
-.architecture-flow-container{margin-top:18px;background:linear-gradient(rgba(32,32,32,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(32,32,32,.045) 1px,transparent 1px),linear-gradient(160deg,#ffffff,#f7f6f1);background-size:26px 26px,26px 26px,auto;border:1px solid #e0dfd7;border-radius:14px;overflow:hidden;box-shadow:0 18px 44px rgba(32,32,32,.10)}
+.architecture-flow-container{position:relative;margin-top:18px;background:linear-gradient(rgba(32,32,32,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(32,32,32,.045) 1px,transparent 1px),linear-gradient(160deg,#ffffff,#f7f6f1);background-size:26px 26px,26px 26px,auto;border:1px solid #e0dfd7;border-radius:14px;overflow:hidden;box-shadow:0 18px 44px rgba(32,32,32,.10)}
 /* terminal-style header: file name left, live status right (green dot) */
 .flow-header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--muted)}
 .flow-header span:last-child{color:var(--green)}
@@ -321,6 +321,32 @@ main{position:relative;z-index:3}
   .architecture-flow-container{margin-top:14px}
   .architecture-flow-container .mermaid{padding:14px 10px}
 }
+/* ---------- ↔ expand button (one-click full view) ---------- */
+/* floats over the diagram's top-right corner, like a map control: hidden for
+   mouse users until hover, always visible on touch devices */
+.flow-expand-btn{position:absolute;top:48px;right:12px;z-index:5;width:42px;height:42px;display:grid;place-items:center;background:rgba(255,255,255,.92);border:1px solid var(--line-strong);border-radius:13px;color:var(--text);cursor:zoom-in;box-shadow:0 10px 26px rgba(32,32,32,.16);opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s,border-color .25s,color .25s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.architecture-flow-container:hover .flow-expand-btn,.flow-expand-btn:focus-visible{opacity:1;transform:none}
+.architecture-flow-container:hover .flow-expand-btn:hover{border-color:var(--accent);color:var(--accent)}
+@media (hover:none),(pointer:coarse){.flow-expand-btn{opacity:1;transform:none}}
+.flow-expand-btn svg{width:20px;height:20px}
+.architecture-flow-container .mermaid{cursor:zoom-in}
+/* ---------- lightbox: focused full-view overlay (no browser zooming) ---------- */
+.flow-lightbox{position:fixed;inset:0;z-index:600;display:grid;place-items:center;padding:clamp(12px,3vw,28px);background:rgba(24,24,22,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}
+.flow-lightbox.open{opacity:1;visibility:visible}
+.flow-lb-panel{width:min(1150px,100%);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;background:linear-gradient(160deg,#ffffff,#f7f6f1);border:1px solid #e0dfd7;border-radius:16px;overflow:hidden;box-shadow:0 48px 140px rgba(24,24,22,.38);transform:translateY(14px) scale(.985);transition:transform .25s ease}
+.flow-lightbox.open .flow-lb-panel{transform:none}
+.flow-lb-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--line)}
+.flow-lb-title{font-size:11px;letter-spacing:.04em;color:var(--muted)}
+.flow-lb-actions{display:flex;align-items:center;gap:8px}
+.flow-lb-zoom{font-family:var(--font-mono);font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--line-strong);background:var(--panel);color:var(--text);cursor:pointer;transition:border-color .2s,color .2s}
+.flow-lb-zoom:hover{border-color:var(--accent);color:var(--accent)}
+.flow-lb-close{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line-strong);border-radius:10px;background:var(--panel);color:var(--text);cursor:pointer;font-size:13px;transition:border-color .2s,color .2s}
+.flow-lb-close:hover{border-color:var(--red);color:var(--red)}
+.flow-lb-body{flex:1;min-height:0;overflow:auto;padding:22px;display:grid;place-items:center;background:linear-gradient(rgba(32,32,32,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(32,32,32,.04) 1px,transparent 1px),linear-gradient(160deg,#ffffff,#f7f6f1);background-size:26px 26px,26px 26px,auto}
+.flow-lb-body svg{max-width:100%;height:auto}
+.flow-lightbox.one-to-one .flow-lb-body{place-items:start start}
+.flow-lightbox.one-to-one .flow-lb-body svg{max-width:none}
+.flow-lb-raw{margin:0;font-size:12px;color:var(--muted);white-space:pre;max-width:100%;overflow:auto}
 /* ---------- stack: matrix + skills ---------- */
 .matrix-wrap{background:#1f1f1d;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:26px;overflow:hidden}
 .matrix-head{display:flex;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px dashed var(--line);font-size:11px;color:var(--faint);margin-bottom:8px}
