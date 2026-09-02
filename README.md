@@ -30,11 +30,12 @@ js/main.js        # warp scroller + bend engine, nav, scroll progress, reveals, 
 2. **Marquee** — infinite scroll of the tech stack
 3. **About** — three principle cards
 4. **Work** — 4 shipped projects (ORCA, Limbi, Local Knowledge RAG, Sales Forecasting) each with a mock UI panel and live demo links
-5. **Stack** — auto-scanning skill matrix + categorized skill chips
-6. **Experience** — Bluestock Fintech internship timeline card
-7. **Credentials** — 5 certifications + education
-8. **Contact** — CTA + email/location/LinkedIn/GitHub cards
-9. **Footer** — nav columns + back-to-top
+5. **Research & Explorations** — active research tracks (autonomous drone system with phase timeline, quantum compute concept, model-agnostic agent harness) with status badges and category tags
+6. **Stack** — auto-scanning skill matrix + categorized skill chips
+7. **Experience** — Bluestock Fintech internship timeline card
+8. **Credentials** — 5 certifications + education
+9. **Contact** — CTA + email/location/LinkedIn/GitHub cards
+10. **Footer** — nav columns + back-to-top
 
 ## Customize
 

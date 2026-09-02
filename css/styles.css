@@ -266,6 +266,43 @@ main{position:relative;z-index:3}
 .matrix-wrap{position:relative}
 .matrix-wrap::after{content:"";position:absolute;left:0;right:0;top:0;height:20%;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(var(--accent-rgb),.17),transparent);animation:matrixScan 4.6s linear infinite}
 @keyframes matrixScan{0%{transform:translateY(-30%)}100%{transform:translateY(560%)}}
+
+/* ---------- research & explorations ---------- */
+.research-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.research-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;display:flex;flex-direction:column;transition:transform .3s,border-color .3s,background .3s}
+.research-card:hover{transform:translateY(-6px);border-color:var(--line-strong);background:var(--panel-2)}
+.research-card.feature{grid-column:1/-1}
+.res-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.res-kind{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.res-status{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:5px 11px;border-radius:999px;white-space:nowrap}
+.res-status.live{color:var(--accent);border-color:rgba(var(--accent-rgb),.4)}
+.research-card h3{font-size:clamp(1.25rem,2vw,1.5rem);margin-bottom:10px}
+.res-scope{font-size:11.5px;color:var(--violet);font-weight:400;letter-spacing:0}
+.res-overview{color:var(--muted);font-size:14.5px;max-width:75ch}
+.res-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.res-tags span{font-size:10.5px;color:var(--muted);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+/* milestone timeline */
+.phases{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:16px;position:relative}
+.phases::before{content:"";position:absolute;left:5px;top:10px;bottom:10px;width:1px;background:var(--line-strong)}
+.phase{position:relative;padding-left:26px}
+.phase::before{content:"";position:absolute;left:0;top:5px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--panel)}
+.phase.now::before{animation:nowPulse 2.4s ease-in-out infinite}
+.phase.next::before{background:transparent;border:1.5px solid var(--line-strong);box-shadow:0 0 0 3px var(--panel)}
+@keyframes nowPulse{0%,100%{box-shadow:0 0 0 3px var(--panel),0 0 0 0 rgba(var(--accent-rgb),.4)}50%{box-shadow:0 0 0 3px var(--panel),0 0 0 8px rgba(var(--accent-rgb),0)}}
+.ph-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ph-tag{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.t-done{color:var(--green);border-color:rgba(46,158,99,.35)}
+.t-now{color:var(--accent);border-color:rgba(var(--accent-rgb),.4)}
+.t-next{color:var(--faint)}
+.phase h4{font-family:var(--font-body);font-size:14.5px;font-weight:600;color:var(--text)}
+.phase p{color:var(--muted);font-size:13.5px;margin-top:6px;max-width:75ch}
+/* staggered milestone reveal on scroll into view */
+.research-card.is-visible .phase{animation:logIn .5s ease both}
+.research-card.is-visible .phase:nth-child(1){animation-delay:.1s}
+.research-card.is-visible .phase:nth-child(2){animation-delay:.3s}
+.research-card.is-visible .phase:nth-child(3){animation-delay:.5s}
+.research-card.is-visible .phase:nth-child(4){animation-delay:.7s}
+@media (max-width:860px){.research-grid{grid-template-columns:1fr}}
 /* ---------- stack: matrix + skills ---------- */
 .matrix-wrap{background:#1f1f1d;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:26px;overflow:hidden}
 .matrix-head{display:flex;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px dashed var(--line);font-size:11px;color:var(--faint);margin-bottom:8px}
