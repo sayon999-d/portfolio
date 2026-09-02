@@ -212,6 +212,52 @@
             </div>
             <div class="chip-row"><span>PyPI</span><span>Homebrew</span><span>pip</span><span>curl installer</span></div>
           </div>
+          <!-- ================================================================
+               Architecture Flow (Mermaid.js) — rendered client-side by the
+               ESM script at the end of <body>. Falls back to showing the raw
+               definition as monospace text if the CDN is unreachable.
+               Note: "&lt;br/&gt;" is the escaped form of <br/> so Mermaid
+               receives the literal tag and renders the line break in-node.
+               ================================================================ -->
+          <div class="architecture-flow-container">
+            <div class="flow-header"><span>system-architecture.mmd</span><span>● interactive</span></div>
+            <pre class="mermaid">
+flowchart TD
+    subgraph Clients["Entry Points"]
+        CLI["CLI: limbi"]
+        API["Python API"]
+        HTTP["FastAPI"]
+        MCP["MCP Client"]
+    end
+
+    subgraph Core["Orchestration Engine"]
+        Orchestrator["Provider-Neutral Orchestrator"]
+        Parser["Payload Parser"]
+        Registry["Agent Registry (90 Agents)"]
+    end
+
+    subgraph State["Workspace State (.limbi)"]
+        Memory[("Context &amp; Memory Graph")]
+        Audit[("Audit DB")]
+        VectorStore[("ChromaDB Vector Store")]
+    end
+
+    subgraph Providers["Provider Layer"]
+        Local["Local: Ollama / LM Studio / vLLM"]
+        Hosted["Hosted: OpenAI / Anthropic / Groq"]
+    end
+
+    CLI --> Orchestrator
+    API --> Orchestrator
+    HTTP --> Orchestrator
+    MCP --> Registry
+
+    Orchestrator <--> State
+    Orchestrator <--> Providers
+    Orchestrator --> Parser --> Registry
+    Registry --> Orchestrator
+  </pre>
+          </div>
         </div>
       </article>
 
@@ -235,6 +281,42 @@
               <div class="bubble bot mono">Per docs/limits.md — 60 req/min per key, burst 120.<br /><span class="dim">sources: limits.md · gateway.md</span></div>
             </div>
             <div class="chip-row"><span>Ollama</span><span>ChromaDB</span><span>Docker Compose</span><span>0 external calls</span></div>
+          </div>
+          <!-- ================================================================
+               RAG Pipeline Flow (Mermaid.js) — dual ingestion + query pipeline.
+               Rendered client-side; same fallback behaviour as above.
+               ================================================================ -->
+          <div class="architecture-flow-container">
+            <div class="flow-header"><span>rag-pipeline-flow.mmd</span><span>● runtime + index</span></div>
+            <pre class="mermaid">
+flowchart TB
+    subgraph Ingestion["Indexing Pipeline (One-Time / Sync)"]
+        Sources["Web Scrapers &amp; Document Uploads"]
+        Chunker["Text Chunking (1000 char / 100 overlap)"]
+        HF_Embed["Hugging Face API (384-dim Embeddings)"]
+        Pinecone[("Pinecone Vector DB")]
+
+        Sources --> Chunker --> HF_Embed --> Pinecone
+    end
+
+    subgraph Runtime["Live Runtime (Streamlit App)"]
+        User["User Query"]
+        Cache{"MD5 Hash&lt;br/&gt;Cache Hit?"}
+        CachedAns["Return Instant Answer (0 Tokens)"]
+        EmbedQ["Embed Query via Hugging Face"]
+        KNN["Cosine Similarity Search (k=2)"]
+        Groq["Groq API (llama-3.1-8b-instant)"]
+        Output["Ground-Truth Answer + Citations"]
+
+        User --> Cache
+        Cache -- Yes --> CachedAns
+        Cache -- No --> EmbedQ
+        EmbedQ --> KNN
+        Pinecone -.-> KNN
+        KNN -->|"Top 2 Context Chunks"| Groq
+        Groq --> Output
+    end
+  </pre>
           </div>
         </div>
       </article>
@@ -507,5 +589,33 @@
 
   <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
   <script src="js/main.js"></script>
+
+  <!-- ==================================================================
+       Mermaid.js — interactive architecture diagrams (Limbi + RAG cards)
+       - ESM build via CDN, loaded as a module (deferred by default, so it
+         never blocks first paint).
+       - Dark/terminal theme tuned to the portfolio: panel #161b22 on the
+         rgba(13,17,23,.75) container, #30363d borders, mono typography.
+       - startOnLoad renders every <pre class="mermaid"> on the page.
+       - securityLevel stays at the default 'strict' (safe for public sites).
+       ================================================================== -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: 'transparent',
+        primaryColor: '#161b22',
+        primaryTextColor: '#c9d1d9',
+        primaryBorderColor: '#30363d',
+        lineColor: '#58a6ff',
+        secondaryColor: '#0d1117',
+        tertiaryColor: '#1f242c',
+        fontFamily: 'JetBrains Mono, IBM Plex Mono, monospace, system-ui'
+      }
+    });
+  </script>
 </body>
 </html>
