@@ -305,16 +305,17 @@ main{position:relative;z-index:3}
 @media (max-width:860px){.research-grid{grid-template-columns:1fr}}
 
 /* ---------- mermaid architecture diagrams (Limbi + RAG cards) ---------- */
-/* Framed dark terminal panel inside the (light) project card. Rounded
+/* Light terminal panel matching the white/green console cards: same gradient,
+   border weight, 26px grid texture and shadow as the .mock panels. Rounded
    corners are clipped by overflow:hidden on the frame itself, while the
    diagram area below scrolls horizontally — the file-name header stays
    pinned instead of scrolling away with the chart. */
-.architecture-flow-container{margin-top:18px;background:rgba(13,17,23,.75);border:1px solid #30363d;border-radius:14px;overflow:hidden;box-shadow:0 18px 44px rgba(32,32,32,.18)}
-/* terminal-style header: file name left, live status right */
-.flow-header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid #30363d;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--faint)}
+.architecture-flow-container{margin-top:18px;background:linear-gradient(rgba(32,32,32,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(32,32,32,.045) 1px,transparent 1px),linear-gradient(160deg,#ffffff,#f7f6f1);background-size:26px 26px,26px 26px,auto;border:1px solid #e0dfd7;border-radius:14px;overflow:hidden;box-shadow:0 18px 44px rgba(32,32,32,.10)}
+/* terminal-style header: file name left, live status right (green dot) */
+.flow-header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--muted)}
 .flow-header span:last-child{color:var(--green)}
 /* scrollable diagram region — keeps nodes readable on narrow screens */
-.architecture-flow-container .mermaid{display:block;padding:18px 14px;margin:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;white-space:normal;font-family:var(--font-mono);font-size:12px;color:var(--faint)}
+.architecture-flow-container .mermaid{display:block;padding:18px 14px;margin:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;white-space:normal;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
 .architecture-flow-container svg{display:block;max-width:100%;height:auto;margin:0 auto}
 @media (max-width:860px){
   .architecture-flow-container{margin-top:14px}

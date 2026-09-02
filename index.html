@@ -594,8 +594,9 @@ flowchart TB
        Mermaid.js — interactive architecture diagrams (Limbi + RAG cards)
        - ESM build via CDN, loaded as a module (deferred by default, so it
          never blocks first paint).
-       - Dark/terminal theme tuned to the portfolio: panel #161b22 on the
-         rgba(13,17,23,.75) container, #30363d borders, mono typography.
+       - Light green terminal theme matched to the white console cards:
+         #f2fbf5 node fills, #22c55e accent edges, #8ed3a8 node borders,
+         green-tinted subgraphs, IBM Plex Mono typography.
        - startOnLoad renders every <pre class="mermaid"> on the page.
        - securityLevel stays at the default 'strict' (safe for public sites).
        ================================================================== -->
@@ -603,18 +604,25 @@ flowchart TB
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
     mermaid.initialize({
       startOnLoad: true,
-      theme: 'dark',
+      theme: 'base',
       themeVariables: {
-        darkMode: true,
+        darkMode: false,
         background: 'transparent',
-        primaryColor: '#161b22',
-        primaryTextColor: '#c9d1d9',
-        primaryBorderColor: '#30363d',
-        lineColor: '#58a6ff',
-        secondaryColor: '#0d1117',
-        tertiaryColor: '#1f242c',
-        fontFamily: 'JetBrains Mono, IBM Plex Mono, monospace, system-ui'
-      }
+        fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
+        fontSize: '13px',
+        primaryColor: '#f2fbf5',
+        primaryTextColor: '#202020',
+        primaryBorderColor: '#8ed3a8',
+        lineColor: '#22c55e',
+        secondaryColor: '#eaf7ef',
+        tertiaryColor: '#f7f6f1',
+        textColor: '#3d3d39',
+        edgeLabelBackground: '#ffffff',
+        clusterBkg: 'rgba(34,197,94,.05)',
+        clusterBorder: '#bfe3cd',
+        titleColor: '#202020'
+      },
+      flowchart: { useMaxWidth: true, curve: 'basis' }
     });
   </script>
 </body>

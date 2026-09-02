@@ -29,7 +29,7 @@ js/main.js        # warp scroller + bend engine, nav, scroll progress, reveals, 
 3. **Interactions** — cursor aurora glow that follows the pointer, magnetic buttons, 3D tilt on cards, scroll reveals, counters, scrollspy nav, tech marquee, and a **WebGL scroll warp**: the page scrolls inside a fixed frame that bends — corners round, the sheet tilts and curves outward at its edges — strictly while scrolling, easing back to perfectly flat on stop, while the aurora shader bulges outward at the edges/corners in sync
 2. **Marquee** — infinite scroll of the tech stack
 3. **About** — three principle cards
-4. **Work** — 4 shipped projects (ORCA, Limbi, Local Knowledge RAG, Sales Forecasting) each with a mock UI panel and live demo links; Limbi and the RAG chatbot include interactive **Mermaid.js architecture diagrams** (dark terminal-framed, CDN-rendered client-side)
+4. **Work** — 4 shipped projects (ORCA, Limbi, Local Knowledge RAG, Sales Forecasting) each with a mock UI panel and live demo links; Limbi and the RAG chatbot include interactive **Mermaid.js architecture diagrams** (white/green terminal-framed, CDN-rendered client-side)
 5. **Research & Explorations** — active research tracks (autonomous drone system with phase timeline, quantum compute concept, model-agnostic agent harness) with status badges and category tags
 6. **Stack** — auto-scanning skill matrix + categorized skill chips
 7. **Experience** — Bluestock Fintech internship timeline card
