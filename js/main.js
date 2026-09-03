@@ -695,17 +695,6 @@
         if (hasRound) { g.beginPath(); g.roundRect(x - sz * fw / 2, y - sz / 2, sz * fw, sz, Math.min(2.5, sz * 0.22)); g.fill(); }
         else g.fillRect(x - sz * fw / 2, y - sz / 2, sz * fw, sz);
       }
-      if (P > 0.02) {                                     /* scan brackets fade in when flat */
-        g.globalAlpha = P; g.strokeStyle = "#22c55e"; g.lineWidth = 2.5;
-        const m = cell * 1.7, L = cell * 2.6;
-        const X0 = ox - m, Y0 = oy - m, X1 = ox + (QR_N + QUIET * 2) * cell + m, Y1 = oy + (QR_N + QUIET * 2) * cell + m;
-        g.beginPath();
-        g.moveTo(X0, Y0 + L); g.lineTo(X0, Y0); g.lineTo(X0 + L, Y0);
-        g.moveTo(X1 - L, Y0); g.lineTo(X1, Y0); g.lineTo(X1, Y0 + L);
-        g.moveTo(X1, Y1 - L); g.lineTo(X1, Y1); g.lineTo(X1 - L, Y1);
-        g.moveTo(X0 + L, Y1); g.lineTo(X0, Y1); g.lineTo(X0, Y1 - L);
-        g.stroke(); g.globalAlpha = 1;
-      }
     }
     function loop(now) {
       if (animating) {
