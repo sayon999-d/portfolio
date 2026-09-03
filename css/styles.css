@@ -398,8 +398,7 @@ main{position:relative;z-index:3}
 /* ---------- contact split + interactive QR tree (mirrors tree.icqr.com) ---------- */
 .contact-cols{display:grid;grid-template-columns:1.12fr .88fr;gap:44px;align-items:center;margin-top:6px}
 .contact-left .contact-actions{justify-content:flex-start;margin-bottom:40px}
-.qr-tree-panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px 22px 16px;text-align:center;transition:border-color .3s}
-.qr-tree-panel:hover{border-color:rgba(var(--accent-rgb),.4)}
+.qr-tree-panel{background:transparent;border:none;padding:0;text-align:center}
 .qr-stage{position:relative;display:block;border-radius:12px;cursor:pointer;outline:none;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 .qr-stage:focus-visible{box-shadow:0 0 0 2px rgba(var(--accent-rgb),.55)}
 .qr-stage canvas{width:100%;height:auto;display:block}
