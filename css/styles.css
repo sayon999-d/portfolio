@@ -395,6 +395,16 @@ main{position:relative;z-index:3}
 .cc-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:9px}
 .cc-value{font-size:14px;word-break:break-word;transition:color .25s}
 .contact-card:hover .cc-value{color:var(--accent)}
+/* ---------- contact split + interactive QR tree (mirrors tree.icqr.com) ---------- */
+.contact-cols{display:grid;grid-template-columns:1.12fr .88fr;gap:44px;align-items:center;margin-top:6px}
+.contact-left .contact-actions{justify-content:flex-start;margin-bottom:40px}
+.qr-tree-panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px 22px 16px;text-align:center;transition:border-color .3s}
+.qr-tree-panel:hover{border-color:rgba(var(--accent-rgb),.4)}
+.qr-stage{position:relative;display:block;border-radius:12px;cursor:pointer;outline:none;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.qr-stage:focus-visible{box-shadow:0 0 0 2px rgba(var(--accent-rgb),.55)}
+.qr-stage canvas{width:100%;height:auto;display:block}
+.qr-hint{margin:10px 0 0;font-size:11px;letter-spacing:.08em;color:var(--faint);display:inline-flex;align-items:center;gap:8px;text-transform:lowercase}
+@media(max-width:960px){.contact-cols{grid-template-columns:1fr;gap:36px}}
 
 /* ---------- footer ---------- */
 .site-footer{border-top:1px solid var(--line);background:var(--bg-2);position:relative;z-index:3}

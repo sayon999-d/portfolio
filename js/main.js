@@ -584,4 +584,161 @@
       document.addEventListener("visibilitychange", () => { lastY = scroller.scrollTop; vel = 0; });
     }
   }
+  /* ---------- contact QR tree: procedural canvas tree whose leaves ARE the dark
+     modules of a real QR code (https://github.com/sayon999-d). Tap: leaves fold
+     flat into a scannable grid; tap again: tree grows back. Mechanic mirrored
+     from tree.icqr.com — dependency-free Canvas2D + rAF. ---------- */
+  const qrCanvas = document.getElementById("qrTreeCanvas");
+  if (qrCanvas) {
+    const stage = document.getElementById("qrStage");
+    const hintEl = document.getElementById("qrHintText");
+    const QR_ROWS = ("11111110110100011111101111111|10000010101010110010001000001|10111010011111110011001011101|10111010110100001101101011101|10111010011001000001001011101|10000010010010100111101000001|11111110101010101010101111111|00000000111011100100100000000|10110111010001101101001001011|10110001010010011101101110001|00110111001110110100010100110|00100100010101110010011010001|01100011100000001110100001100|00101001111011000011001000111|11000011101010100001101000111|10111000110001010001111110010|11110010110010000001100011010|00011101111111000110000101110|10100111001100000010101110100|00111101010000011110001110100|01000011010111010100111111100|00000000100111110110100011111|11111110100101001111101011010|10000010101110001010100011011|10111010011010110100111110101|10111010111011101101010111010|10111010111011111010100100101|10000010011001001010110101010|11111110100001010101111000010").split("|");
+    const QR_N = 29, QUIET = 4, W = 520, H = 640, DUR = 1150;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    qrCanvas.width = W * dpr; qrCanvas.height = H * dpr;
+    const g = qrCanvas.getContext("2d");
+    g.scale(dpr, dpr);
+    const cell = (W - 56) / (QR_N + QUIET * 2);
+    const ox = (W - (QR_N + QUIET * 2) * cell) / 2, oy = (H - (QR_N + QUIET * 2) * cell) / 2;
+    const groundY = H - 42, cx = W / 2;
+    let seed = 20260903;
+    const rng = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+    /* recursive branch growth; deep endpoints become leaf anchors. The seed is
+       rejection-sampled until the canopy is centered, wide and tall on canvas. */
+    let branches = [], anchors = [];
+    function build() {
+      branches = []; anchors = [];
+      (function grow(x, y, ang, len, w, depth) {
+        const nx = x + Math.cos(ang) * len, ny = y + Math.sin(ang) * len;
+        branches.push({ x1: x, y1: y, x2: nx, y2: ny, w: w, ph: rng() * 6.283 });
+        if (depth >= 1) anchors.push({ x: nx, y: ny });  /* every branch endpoint = leaf anchor → foliage fills the whole (centered) canopy */
+        if (depth >= 8 || len < 9) return;
+        const kids = rng() < 0.28 ? 3 : 2;
+        for (let i = 0; i < kids; i++) {
+          grow(nx, ny, ang + (i - (kids - 1) / 2) * (0.46 + rng() * 0.26) + (rng() - 0.5) * 0.14,
+            len * (0.7 + rng() * 0.12), Math.max(1.5, w * 0.64), depth + 1);
+        }
+      })(cx, groundY, -Math.PI / 2 - 0.05, 96, 14, 0);
+      /* affine-fit the whole tree: centered, trunk base exactly on the ground */
+      let bx0 = 1e9, bx1 = -1e9, by0 = 1e9, by1 = -1e9;
+      branches.forEach(b => {
+        bx0 = Math.min(bx0, b.x1, b.x2); bx1 = Math.max(bx1, b.x1, b.x2);
+        by0 = Math.min(by0, b.y1, b.y2); by1 = Math.max(by1, b.y1, b.y2);
+      });
+      const scx = (W - 108) / (bx1 - bx0), scy = (groundY - 74) / (by1 - by0);
+      const txo = W / 2 - (bx0 + bx1) / 2 * scx, tyo = groundY - by1 * scy;
+      branches.forEach(b => { b.x1 = b.x1 * scx + txo; b.x2 = b.x2 * scx + txo; b.y1 = b.y1 * scy + tyo; b.y2 = b.y2 * scy + tyo; });
+      anchors.forEach(p => { p.x = p.x * scx + txo; p.y = p.y * scy + tyo; });
+      let ax0 = 1e9, ax1 = -1e9, ay0 = 1e9, ay1 = -1e9;
+      anchors.forEach(p => {
+        ax0 = Math.min(ax0, p.x); ax1 = Math.max(ax1, p.x); ay0 = Math.min(ay0, p.y); ay1 = Math.max(ay1, p.y);
+      });
+      return Math.abs((ax0 + ax1) / 2 - cx) < 40 && ax1 - ax0 > 300 && ay1 - ay0 > 280 && ay0 > 56 && ax0 > 8 && ax1 < W - 8;
+    }
+    if (!build()) for (let t2 = 1; t2 < 240; t2++) { seed = 20260903 + t2 * 7919; if (build()) break; }
+    /* one leaf per dark QR module, scattered across the affinely-centered canopy
+       disc so foliage reads as a full, balanced tree (the skeleton shows through) */
+    const LEAF_COLS = [[21, 128, 61], [22, 163, 74], [34, 197, 94], [74, 222, 128], [163, 230, 57]];
+    const INK = [28, 28, 26];
+    const canopyCX = cx, canopyCY = 336, canopyR = 206;
+    const leaves = [];
+    for (let gy = 0; gy < QR_N; gy++) for (let gx = 0; gx < QR_N; gx++) {
+      if (QR_ROWS[gy][gx] !== "1") continue;
+      const a0 = rng() * 6.283, rr = Math.sqrt(rng()), R = canopyR * rr * (0.6 + 0.4 * rng());
+      const tx = canopyCX + Math.cos(a0) * R;
+      const ty = canopyCY + Math.sin(a0) * R * 1.14;
+      leaves.push({
+        gx: gx, gy: gy,
+        tx: tx, ty: ty,
+        z: rng(), ph: rng() * 6.283,
+        col: LEAF_COLS[(gx * 7 + gy * 13 + (gx % 3)) % LEAF_COLS.length],
+        delay: Math.min(0.3, Math.max(0, (ty - 74) / (groundY - 74)) * 0.3)
+      });
+    }
+    const fx = v => ox + (QUIET + v + 0.5) * cell, fy = v => oy + (QUIET + v + 0.5) * cell;
+    const sway = (x, y, t) => Math.sin(t * 1.15 + y * 0.012 + x * 0.004) * 6.5 *
+      Math.pow(Math.max(0, groundY - y) / (groundY - 74), 1.35);
+    const easeIO = p => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+    const cl01 = v => (v < 0 ? 0 : v > 1 ? 1 : v);
+    let flat = false, progress = 0, animFrom = 0, animTo = 0, animStart = 0, animating = false;
+    let visible = false, running = false, raf = 0;
+    const hasRound = typeof g.roundRect === "function";
+    function draw(now) {
+      const t = now / 1000, P = progress, inv = 1 - P;
+      g.clearRect(0, 0, W, H);
+      if (inv > 0.01) {                                   /* ground shadow (tree only) */
+        g.globalAlpha = 0.13 * inv; g.fillStyle = "#1c1c1a";
+        g.beginPath(); g.ellipse(cx, groundY + 12, 96 + 34 * inv, 13, 0, 0, 6.283); g.fill();
+        g.globalAlpha = 1;
+      }
+      if (inv > 0.01) {                                   /* branches fade as it folds flat */
+        g.strokeStyle = "#4a3b2c"; g.lineCap = "round"; g.globalAlpha = inv;
+        for (const b of branches) {
+          g.lineWidth = b.w;
+          g.beginPath();
+          g.moveTo(b.x1 + sway(b.x1, b.y1, t), b.y1);
+          g.lineTo(b.x2 + sway(b.x2, b.y2, t), b.y2);
+          g.stroke();
+        }
+        g.globalAlpha = 1;
+      }
+      for (const lf of leaves) {                          /* leaves: tree pos -> QR grid */
+        const p = easeIO(cl01((P - lf.delay) / 0.7));
+        const sw = inv * (sway(lf.tx, lf.ty, t) + Math.sin(t * 2.1 + lf.ph) * 1.1);
+        const x = lf.tx + sw + (fx(lf.gx) - lf.tx) * p, y = lf.ty + (fy(lf.gy) - lf.ty) * p;
+        const fw = 0.3 + 0.7 * Math.abs(Math.cos(p * Math.PI));
+        const sz = cell * 1.08 * (0.82 + 0.36 * lf.z) * (1 - p) + cell * 0.94 * p;
+        const r = Math.round(lf.col[0] + (INK[0] - lf.col[0]) * p),
+          gr = Math.round(lf.col[1] + (INK[1] - lf.col[1]) * p),
+          bl = Math.round(lf.col[2] + (INK[2] - lf.col[2]) * p);
+        g.fillStyle = "rgb(" + r + "," + gr + "," + bl + ")";
+        if (hasRound) { g.beginPath(); g.roundRect(x - sz * fw / 2, y - sz / 2, sz * fw, sz, Math.min(2.5, sz * 0.22)); g.fill(); }
+        else g.fillRect(x - sz * fw / 2, y - sz / 2, sz * fw, sz);
+      }
+      if (P > 0.02) {                                     /* scan brackets fade in when flat */
+        g.globalAlpha = P; g.strokeStyle = "#22c55e"; g.lineWidth = 2.5;
+        const m = cell * 1.7, L = cell * 2.6;
+        const X0 = ox - m, Y0 = oy - m, X1 = ox + (QR_N + QUIET * 2) * cell + m, Y1 = oy + (QR_N + QUIET * 2) * cell + m;
+        g.beginPath();
+        g.moveTo(X0, Y0 + L); g.lineTo(X0, Y0); g.lineTo(X0 + L, Y0);
+        g.moveTo(X1 - L, Y0); g.lineTo(X1, Y0); g.lineTo(X1, Y0 + L);
+        g.moveTo(X1, Y1 - L); g.lineTo(X1, Y1); g.lineTo(X1 - L, Y1);
+        g.moveTo(X0 + L, Y1); g.lineTo(X0, Y1); g.lineTo(X0, Y1 - L);
+        g.stroke(); g.globalAlpha = 1;
+      }
+    }
+    function loop(now) {
+      if (animating) {
+        const k = Math.min(1, (now - animStart) / DUR);
+        progress = animFrom + (animTo - animFrom) * easeIO(k);
+        if (k >= 1) { animating = false; progress = animTo; }
+      }
+      draw(now);
+      if (visible && (animating || !flat)) raf = requestAnimationFrame(loop);
+      else running = false;
+    }
+    const ensureLoop = () => { if (!running && !prefersReduced) { running = true; raf = requestAnimationFrame(loop); } };
+    const renderOnce = () => draw(performance.now());
+    function setFlat(v) {
+      flat = v; animFrom = progress; animTo = v ? 1 : 0; animStart = performance.now();
+      animating = !prefersReduced;
+      if (prefersReduced) progress = v ? 1 : 0;
+      stage.setAttribute("aria-pressed", String(v));
+      if (hintEl) hintEl.textContent = v ? "scan me — tap to fold the tree back up"
+        : "tap the tree — it folds flat into a scannable QR";
+      ensureLoop(); if (prefersReduced) renderOnce();
+    }
+    stage.addEventListener("click", () => setFlat(!flat));
+    stage.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setFlat(!flat); }
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(es => es.forEach(en => {
+        visible = en.isIntersecting;
+        if (visible) { prefersReduced ? renderOnce() : ensureLoop(); }
+      }), { threshold: 0.12 }).observe(qrCanvas);
+    } else { visible = true; ensureLoop(); }
+    renderOnce();
+  }
+
 })();

@@ -528,10 +528,12 @@ flowchart TB
           <h2>Let's build the next <span class="accent">intelligent system</span>.</h2>
           <p class="section-sub">Open to AI/ML roles, internships and freelance builds. If it involves agents, RAG or shipping fast — I'm in.</p>
         </div>
-        <div class="contact-actions" data-reveal data-delay="1">
-          <a class="btn btn-accent" href="mailto:sayonmana@gmail.com">Email me</a>
-        </div>
-        <div class="contact-grid">
+        <div class="contact-cols">
+          <div class="contact-left" data-reveal data-delay="1">
+            <div class="contact-actions">
+              <a class="btn btn-accent" href="mailto:sayonmana@gmail.com">Email me</a>
+            </div>
+            <div class="contact-grid">
           <a class="contact-card" href="mailto:sayonmana@gmail.com" data-reveal data-delay="1">
             <span class="cc-label">Email</span>
             <span class="cc-value">sayonmana@gmail.com</span>
@@ -548,6 +550,14 @@ flowchart TB
             <span class="cc-label">GitHub</span>
             <span class="cc-value">@sayon999-d</span>
           </a>
+            </div>
+          </div>
+          <aside class="qr-tree-panel" data-reveal data-delay="2">
+            <div class="qr-stage" id="qrStage" role="button" tabindex="0" aria-pressed="false" aria-label="Interactive QR tree — activate to fold it into a scannable QR code">
+              <canvas id="qrTreeCanvas" width="520" height="640" aria-hidden="true"></canvas>
+            </div>
+            <p class="qr-hint mono"><span class="pulse-dot" aria-hidden="true"></span><span id="qrHintText">tap the tree — it folds flat into a scannable QR</span></p>
+          </aside>
         </div>
       </div>
     </section>
